@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C6277315-92F9-43E7-9885-B6A0756B77EF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Zynzezizer_cs</RootNamespace>
+    <AssemblyName>Zynzezizer_cs</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Flee.Net45, Version=1.0.0.0, Culture=neutral, PublicKeyToken=951a102ce2413032, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flee.1.2.2\lib\net45\Flee.Net45.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NoiseMaking\AllPassFilterAprox.cs" />
+    <Compile Include="NoiseMaking\BiQuadFilter.cs" />
+    <Compile Include="NoiseMaking\DummyWaveProvider.cs" />
+    <Compile Include="NoiseMaking\FilteredOscillator.cs" />
+    <Compile Include="NoiseMaking\Freeverb.cs" />
+    <Compile Include="NoiseMaking\LFO.cs" />
+    <Compile Include="NoiseMaking\LookaheadLimiter.cs" />
+    <Compile Include="NoiseMaking\LowPassFeedBackCombFilter.cs" />
+    <Compile Include="NoiseMaking\NoiseMakingUtils.cs" />
+    <Compile Include="NoiseMaking\SynthEngine.cs" />
+    <Compile Include="NoiseMaking\TrackInfo.cs" />
+    <Compile Include="NoiseMaking\WaveEffect32.cs" />
+    <Compile Include="NoiseMaking\WaveMixer32.cs" />
+    <Compile Include="UI\Forms\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NoiseMaking\Oscillator.cs" />
+    <Compile Include="UI\Forms\Plotter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Plotter.Designer.cs">
+      <DependentUpon>Plotter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Sequencer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Sequencer.Designer.cs">
+      <DependentUpon>Sequencer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Synthesizers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Synthesizers.Designer.cs">
+      <DependentUpon>Synthesizers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PianoKeys\PianoMiddleKey.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\PianoKeys\PianoRightKey.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\PianoKeys\PianoLeftKey.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\PianoRoll.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\PianoRoll.Designer.cs">
+      <DependentUpon>PianoRoll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="UI\Forms\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\PianoRoll.resx">
+      <DependentUpon>PianoRoll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\Forms\Plotter.resx">
+      <DependentUpon>Plotter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Sequencer.resx">
+      <DependentUpon>Sequencer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Synthesizers.resx">
+      <DependentUpon>Synthesizers.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="UI\packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
