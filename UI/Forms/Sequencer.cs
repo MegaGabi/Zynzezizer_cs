@@ -16,8 +16,9 @@ namespace Zynzezizer_cs
         private SynthEngine synthEngine;
         private TrackInfo trackInfo;
         private Thread player;
-        private int currentBeat;
-        private int endBeat;
+        private int currentBeat = 0;
+        private int endBeat = 0;
+        private bool isSelectedChanged = false;
 
         public Sequencer(SynthEngine synthEngine, TrackInfo trackInfo)
         {
@@ -40,8 +41,9 @@ namespace Zynzezizer_cs
         {
             lb_Notes.Items.Add("NewNote");
             trackInfo.notes.Add(new TrackNoteInfo());
-            //lb_Notes.SelectedIndex = lb_Notes.Items.Count - 1;
-            //UpdateNote();
+            lb_Notes.SelectedIndex = lb_Notes.Items.Count - 1;
+            cb_Note.SelectedIndex = 0;
+            UpdateNote();
         }
 
         private void btn_Remove_Click(object sender, EventArgs e)
@@ -50,6 +52,19 @@ namespace Zynzezizer_cs
             {
                 if(lb_Notes.SelectedIndex != -1)
                 {
+                    var note = trackInfo.notes[lb_Notes.SelectedIndex];
+                    if (note.beatStart + note.beatLength == endBeat)
+                    {
+                        var newEndBeat = 0;
+                        trackInfo.notes.ForEach((x) =>
+                        {
+                            if(x.beatStart + x.beatLength > newEndBeat)
+                            {
+                                newEndBeat = x.beatStart + x.beatLength;
+                            }
+                        });
+                        endBeat = newEndBeat;
+                    }
                     trackInfo.notes.RemoveAt(lb_Notes.SelectedIndex);
                     lb_Notes.Items.Remove(lb_Notes.SelectedItem);
                 }
@@ -71,21 +86,29 @@ namespace Zynzezizer_cs
 
         private void Start()
         {
+            List<TrackNoteInfo> startedBeats = new List<TrackNoteInfo>();
+            Func<int, int, int> calculateNote =
+            (int note, int octave) =>
+            {
+                return octave * 12 + note;
+            };
+
             try
             {
                 int oneBeat = (int)(60000 / (float)trackInfo.BPM);
-                for (int i = 0; i < 100; ++i)
+                for (int i = 0; i <= endBeat; ++i)
                 {
-                    synthEngine.NoteOn(49);
-                    Thread.Sleep(oneBeat);
-                    synthEngine.NoteOff(49);
+                    startedBeats = trackInfo.notes.FindAll((x) => x.beatStart == i);
+                    var beatsToEnd = trackInfo.notes.FindAll((x) => x.beatStart + x.beatLength == i);
+                    beatsToEnd.ForEach((x) => synthEngine.NoteOff(calculateNote(x.currentNote, x.octave)));
+                    startedBeats.ForEach((x) => synthEngine.NoteOn(calculateNote(x.currentNote, x.octave)));
                     Thread.Sleep(oneBeat);
                     ++currentBeat;
                 }
             }
             catch (ThreadAbortException e)
             {
-                synthEngine.NoteOff(49);
+                startedBeats.ForEach((x) => synthEngine.NoteOff(calculateNote(x.currentNote, x.octave)));
             }
         }
 
@@ -93,13 +116,18 @@ namespace Zynzezizer_cs
         {
             if (lb_Notes.Items.Count > 0)
             {
-                if (lb_Notes.SelectedIndex != -1)
+                if (lb_Notes.SelectedIndex != -1 && !isSelectedChanged)
                 {
                     var note = trackInfo.notes[lb_Notes.SelectedIndex];
                     note.octave = tb_Octave.Value;
                     note.currentNote = cb_Note.SelectedIndex;
                     note.beatStart = (int)nud_StartBeat.Value;
                     note.beatLength = (int)nud_Length.Value;
+
+                    if(note.beatStart + note.beatLength > endBeat)
+                    {
+                        endBeat = note.beatStart + note.beatLength;
+                    }
 
                     lb_Notes.Items[lb_Notes.SelectedIndex] 
                         = cb_Note.Items[cb_Note.SelectedIndex].ToString() + tb_Octave.Value + "(" + nud_StartBeat.Value + ")(" + nud_Length.Value + ")";
@@ -139,10 +167,12 @@ namespace Zynzezizer_cs
             {
                 if (lb_Notes.SelectedIndex != -1)
                 {
+                    isSelectedChanged = true;
                     var note = trackInfo.notes[lb_Notes.SelectedIndex];
                     tb_Octave.Value = note.octave;
                     cb_Note.SelectedIndex = note.currentNote;
                     nud_StartBeat.Value = note.beatStart;
+                    isSelectedChanged = false;
                     nud_Length.Value = note.beatLength;
                 }
             }
