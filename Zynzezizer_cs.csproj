@@ -68,6 +68,9 @@
     <Compile Include="NoiseMaking\TrackInfo.cs" />
     <Compile Include="NoiseMaking\WaveEffect32.cs" />
     <Compile Include="NoiseMaking\WaveMixer32.cs" />
+    <Compile Include="StateSaver\FormData.cs" />
+    <Compile Include="StateSaver\SequencerData.cs" />
+    <Compile Include="StateSaver\SynthesizersData.cs" />
     <Compile Include="UI\Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

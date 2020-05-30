@@ -33,12 +33,16 @@
             this.pianoRollToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.synthesizerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sequencerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenu,
             this.controlsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -77,6 +81,29 @@
             this.sequencerToolStripMenuItem.Text = "Sequencer";
             this.sequencerToolStripMenuItem.Click += new System.EventHandler(this.sequencerToolStripMenuItem_Click);
             // 
+            // fileToolStripMenu
+            // 
+            this.fileToolStripMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem,
+            this.loadToolStripMenuItem});
+            this.fileToolStripMenu.Name = "fileToolStripMenu";
+            this.fileToolStripMenu.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenu.Text = "File";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -101,6 +128,9 @@
         private System.Windows.Forms.ToolStripMenuItem pianoRollToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem synthesizerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sequencerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenu;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
     }
 }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Zynzezizer_cs
 {
+    [Serializable]
     public class TrackNoteInfo
     {
         public int currentNote;
@@ -14,6 +15,7 @@ namespace Zynzezizer_cs
         public int beatStart;
     }
 
+    [Serializable]
     public class TrackInfo
     {
         public int BPM;

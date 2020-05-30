@@ -308,5 +308,96 @@ namespace Zynzezizer_cs
         {
             synthEngine.WaveformFunction = getWaveFunction();
         }
+
+        public SynthesizersData serialize()
+        {
+            SynthesizersData result = new SynthesizersData();
+            result.osc1_Index = Osc1_waveform.SelectedIndex;
+            result.osc1_Fine = tb_Osc1_Fine.Value;
+
+            result.osc2_Index = Osc2_waveform.SelectedIndex;
+            result.osc2_Mix = tb_Osc2_Mix.Value;
+            result.osc2_Fine = tb_Osc2_Fine.Value;
+            result.osc2_Semi = tb_Osc2_Semi.Value;
+
+            result.osc3_Index = Osc3_waveform.SelectedIndex;
+            result.osc3_Mix = tb_Osc3_Mix.Value;
+            result.osc3_Fine = tb_Osc3_Fine.Value;
+            result.osc3_Semi = tb_Osc3_Semi.Value;
+
+            result.isUsingFormula = rb_Formula.Checked;
+
+            result.formula = tb_Formula.Text;
+
+            result.volume = tb_Volume.Value;
+
+            result.amp_attack = AMP_Attack.Value;
+            result.amp_decay = AMP_Decay.Value;
+            result.amp_sustain = AMP_Sustain.Value;
+            result.amp_release = AMP_Release.Value;
+
+            result.filter_index = FilterType.SelectedIndex;
+            result.isBypass = cb_FilterBypass.Checked;
+            result.filter_cutoff = Filter_Cutoff.Value;
+            result.filter_FEO = Filter_Envelope_Octaves.Value;
+            result.filter_attack = Filter_Attack.Value;
+            result.filter_decay = Filter_Decay.Value;
+            result.filter_sustain = Filter_Sustain.Value;
+            result.filter_release = Filter_Release.Value;
+
+            result.lfo_index = LFO_Waveform.SelectedIndex;
+            result.lfo_frequency = LFO_Frequency.Value;
+            result.lfo_amplitude = LFO_Volume.Value;
+
+            result.reverb_level = Reverb_Level.Value;
+            result.reverb_damp = Reverb_Damp.Value;
+            result.reverb_room = Reverb_Room.Value;
+            return result;
+        }
+
+        public void LoadFromData(SynthesizersData synthesizersData)
+        {
+            Osc1_waveform.SelectedIndex = synthesizersData.osc1_Index;
+            tb_Osc1_Fine.Value = synthesizersData.osc1_Fine;
+
+            Osc2_waveform.SelectedIndex = synthesizersData.osc2_Index;
+            tb_Osc2_Mix.Value = synthesizersData.osc2_Mix;
+            tb_Osc2_Fine.Value = synthesizersData.osc2_Fine;
+            tb_Osc2_Semi.Value = synthesizersData.osc2_Semi;
+
+            Osc3_waveform.SelectedIndex = synthesizersData.osc3_Index;
+            tb_Osc3_Mix.Value = synthesizersData.osc3_Mix;
+            tb_Osc3_Fine.Value = synthesizersData.osc3_Fine;
+            tb_Osc3_Semi.Value = synthesizersData.osc3_Semi;
+
+            tb_Formula.Text = synthesizersData.formula;
+
+            rb_Formula.Checked = synthesizersData.isUsingFormula;
+            rb_Oscillators.Checked = !synthesizersData.isUsingFormula;
+
+            tb_Volume.Value = synthesizersData.volume;
+
+            AMP_Attack.Value = synthesizersData.amp_attack;
+            AMP_Decay.Value = synthesizersData.amp_decay;
+            AMP_Sustain.Value = synthesizersData.amp_sustain;
+            AMP_Release.Value = synthesizersData.amp_release;
+
+            FilterType.SelectedIndex = synthesizersData.filter_index;
+            cb_FilterBypass.Checked = synthesizersData.isBypass;
+            Filter_Cutoff.Value = synthesizersData.filter_cutoff;
+            Filter_Envelope_Octaves.Value = synthesizersData.filter_FEO;
+            Filter_Attack.Value = synthesizersData.filter_attack;
+            Filter_Decay.Value = synthesizersData.filter_decay;
+            Filter_Sustain.Value = synthesizersData.filter_sustain;
+            Filter_Release.Value = synthesizersData.filter_release;
+
+            LFO_Waveform.SelectedIndex = synthesizersData.lfo_index;
+            LFO_Frequency.Value = synthesizersData.lfo_frequency;
+            LFO_Volume.Value = synthesizersData.lfo_amplitude;
+
+            Reverb_Level.Value = synthesizersData.reverb_level;
+            Reverb_Damp.Value = synthesizersData.reverb_damp;
+            Reverb_Room.Value = synthesizersData.reverb_room;
+        }
     }
 }

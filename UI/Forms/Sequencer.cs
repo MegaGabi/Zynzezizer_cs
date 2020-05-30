@@ -186,5 +186,29 @@ namespace Zynzezizer_cs
                 Hide();
             }
         }
+
+        public SequencerData serialize()
+        {
+            SequencerData result = new SequencerData();
+            result.trackInfo = trackInfo;
+            return result;
+        }
+
+        public void LoadFromData(SequencerData sequencerData)
+        {
+            trackInfo = sequencerData.trackInfo;
+            tb_BPM.Value = trackInfo.BPM / 4;
+
+            lb_Notes.Items.Clear();
+
+            trackInfo.notes.ForEach
+                ((x) =>
+                {
+                    lb_Notes.Items.Add("NewNote");
+                    lb_Notes.SelectedIndex = lb_Notes.Items.Count - 1;
+                    lb_Notes_SelectedIndexChanged(null, null);
+                    UpdateNote();
+                });
+        }
     }
 }

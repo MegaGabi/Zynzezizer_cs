@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -82,6 +85,57 @@ namespace Zynzezizer_cs
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             audioOutput.Stop();
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Synth file|*.synth";
+            saveFileDialog.Title = "Save synth file";
+
+            // If the file name is not an empty string open it for saving.
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+
+                FormData formData = new FormData();
+                formData.sequencerData = sequencer?.serialize();
+                formData.synthesizersData = synthesizers?.serialize();
+
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
+
+                formatter.Serialize(stream, formData);
+                stream.Close();
+            }
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Synth file|*.synth";
+            openFileDialog.Title = "Load synth file";
+
+            // If the file name is not an empty string open it for saving.
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
+
+                FormData formData = (FormData)formatter.Deserialize(stream);
+                stream.Close();
+
+                if (formData.sequencerData != null)
+                {
+                    sequencerToolStripMenuItem_Click(null, null);
+                    sequencer.LoadFromData(formData.sequencerData);
+                }
+
+                if (formData.synthesizersData != null)
+                {
+                    synthesizerToolStripMenuItem_Click(null, null);
+                    synthesizers.LoadFromData(formData.synthesizersData);
+                }
+            }
         }
     }
 }
